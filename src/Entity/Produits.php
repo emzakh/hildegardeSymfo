@@ -90,6 +90,41 @@ class Produits
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $saison;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cultivation;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $conservation;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $apport;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $vitamine;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $bebe;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nutriscore;
+
 
     /**
      * Permet d'initialiser le slug automatiquement s'il n'est pas fourni
@@ -220,6 +255,90 @@ class Produits
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getSaison(): ?string
+    {
+        return $this->saison;
+    }
+
+    public function setSaison(?string $saison): self
+    {
+        $this->saison = $saison;
+
+        return $this;
+    }
+
+    public function getCultivation(): ?string
+    {
+        return $this->cultivation;
+    }
+
+    public function setCultivation(?string $cultivation): self
+    {
+        $this->cultivation = $cultivation;
+
+        return $this;
+    }
+
+    public function getConservation(): ?string
+    {
+        return $this->conservation;
+    }
+
+    public function setConservation(?string $conservation): self
+    {
+        $this->conservation = $conservation;
+
+        return $this;
+    }
+
+    public function getApport(): ?string
+    {
+        return $this->apport;
+    }
+
+    public function setApport(?string $apport): self
+    {
+        $this->apport = $apport;
+
+        return $this;
+    }
+
+    public function getVitamine(): ?string
+    {
+        return $this->vitamine;
+    }
+
+    public function setVitamine(?string $vitamine): self
+    {
+        $this->vitamine = $vitamine;
+
+        return $this;
+    }
+
+    public function getBebe(): ?string
+    {
+        return $this->bebe;
+    }
+
+    public function setBebe(?string $bebe): self
+    {
+        $this->bebe = $bebe;
+
+        return $this;
+    }
+
+    public function getNutriscore(): ?string
+    {
+        return $this->nutriscore;
+    }
+
+    public function setNutriscore(?string $nutriscore): self
+    {
+        $this->nutriscore = $nutriscore;
 
         return $this;
     }
