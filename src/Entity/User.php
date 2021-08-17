@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Cocur\Slugify\Slugify;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
@@ -19,6 +21,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  fields={"email"},
  *  message="email déjà utilisé merci d'en choisir un autre"
  * )
+ * @ApiResource(
+ *     normalizationContext={
+ *          "groups"={"users_read"}
+ *     }
+ * )
  */
 class User implements UserInterface
 {
@@ -26,6 +33,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"users_read"})
      */
     private $id;
 
@@ -38,6 +46,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"users_read"})
      */
     private $roles = [];
 
@@ -56,23 +65,27 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Commentaires::class, mappedBy="author", orphanRemoval=true)
+     * @Groups({"users_read"})
      */
     private $commentaires;
 
     /**
      * @ORM\OneToMany(targetEntity=Recettes::class, mappedBy="author", cascade={"remove"})
+     * @Groups({"users_read", "comments_read"})
      */
     private $recettes;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Vous devez renseigner votre prénom")
+     * @Groups({"users_read", "recettes_read", "comments_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank (message="Vous devez renseigner votre nom")
+     * @Groups({"users_read", "recettes_read", "comments_read"})
      */
     private $lastName;
 
@@ -85,6 +98,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"}, mimeTypesMessage="Vous devez upload un fichier jpg, png ou gif")
      * @Assert\File(maxSize="1024k", maxSizeMessage="Taille du fichier trop grande")
+     * @Groups({"users_read"})
      */
     private $picture;
 
@@ -93,6 +107,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\Length(min=10, minMessage="Votre presentation doit faire au minimum 10 caractères")
+     * @Groups({"users_read"})
      */
     private $presentation;
 
@@ -110,6 +125,11 @@ class User implements UserInterface
         }
     }
 
+    /**
+     * Undocumented function
+     *
+     * @Groups({"users_read","recettes_read"})
+     */
     public function getFullName(){
         return "{$this->firstName} {$this->lastName}";
     }

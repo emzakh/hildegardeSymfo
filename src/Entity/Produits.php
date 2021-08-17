@@ -18,14 +18,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     normalizationContext={
  *          "groups"={"produits_read"}
- *     }
+ *     } 
+ * 
  * )
  * @UniqueEntity(
  *  fields={"nom"},
  *  message="Un autre produit possède déjà ce nom, merci de le modifier"
  * )
  */
-
 class Produits
 {
     /**
@@ -53,7 +53,7 @@ class Produits
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=2, max=50, minMessage="Le nom du produit doit faire plus de 2 caractères", maxMessage="Le nom ne peut pas faire plus de 50 caractères")
-     * @Groups({"produits_read"})
+     * @Groups({"produits_read", "recettes_read"})
      */
     private $nom;
 
