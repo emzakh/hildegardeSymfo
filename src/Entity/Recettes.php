@@ -45,14 +45,14 @@ class Recettes
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"recettes_read"})
+     * @Groups({"recettes_read", "produits_read"})
      */
     private $date;
 
     /**
      * @Assert\Length(min=2, max=250, minMessage="La description doit faire plus de 2 caractères", maxMessage="La decription ne peut pas faire plus de 250 caractères")
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"recettes_read"})
+     * @Groups({"recettes_read", "produits_read"})
      */
     private $description;
 
@@ -78,13 +78,13 @@ class Recettes
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"recettes_read"})
+     * @Groups({"recettes_read", "produits_read"})
      */
     private $types;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recettes")
-     * @Groups({"recettes_read"})
+     * @Groups({"recettes_read", "produits_read"})
      */
     private $author;
 
@@ -97,9 +97,24 @@ class Recettes
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"}, mimeTypesMessage="Vous devez upload un fichier jpg, png ou gif")
      * @Assert\File(maxSize="1024k", maxSizeMessage="Taille du fichier trop grande")
-     * @Groups({"recettes_read"})
+     * @Groups({"recettes_read", "produits_read"})
      */
     private $imgRecette;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $preptime;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cooktime;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $portion;
 
     /**
      * Permet d'initialiser le slug automatiquement s'il n'est pas fourni
@@ -344,6 +359,42 @@ class Recettes
                 $commentaire->setRecette(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPreptime(): ?string
+    {
+        return $this->preptime;
+    }
+
+    public function setPreptime(?string $preptime): self
+    {
+        $this->preptime = $preptime;
+
+        return $this;
+    }
+
+    public function getCooktime(): ?string
+    {
+        return $this->cooktime;
+    }
+
+    public function setCooktime(?string $cooktime): self
+    {
+        $this->cooktime = $cooktime;
+
+        return $this;
+    }
+
+    public function getPortion(): ?string
+    {
+        return $this->portion;
+    }
+
+    public function setPortion(?string $portion): self
+    {
+        $this->portion = $portion;
 
         return $this;
     }

@@ -92,36 +92,43 @@ class Produits
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"produits_read"})
      */
     private $saison;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"produits_read"})
      */
     private $cultivation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"produits_read"})
      */
     private $conservation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"produits_read"})
      */
     private $apport;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"produits_read"})
      */
     private $vitamine;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"produits_read"})
      */
     private $bebe;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"produits_read"})
      */
     private $nutriscore;
 
