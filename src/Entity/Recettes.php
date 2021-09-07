@@ -103,16 +103,19 @@ class Recettes
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"recettes_read"})
      */
     private $preptime;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"recettes_read"})
      */
     private $cooktime;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"recettes_read"})
      */
     private $portion;
 

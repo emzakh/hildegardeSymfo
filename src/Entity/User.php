@@ -98,7 +98,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"}, mimeTypesMessage="Vous devez upload un fichier jpg, png ou gif")
      * @Assert\File(maxSize="1024k", maxSizeMessage="Taille du fichier trop grande")
-     * @Groups({"users_read"})
+     * @Groups({"users_read", "recettes_read", "comments_read"})
      */
     private $picture;
 
