@@ -24,7 +24,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ApiResource(
  *     normalizationContext={
  *          "groups"={"users_read"}
- *     }
+ *     },
+ * collectionOperations={"GET", "POST"} 
  * )
  */
 class User implements UserInterface
@@ -41,6 +42,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email(message="Veuillez renseigner une adresse email valide",groups={"Registration"})
      * @Assert\NotBlank(groups={"Registration"})
+     * @Groups({"users_read"})
      */
     private $email;
 
@@ -54,12 +56,13 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\NotBlank(groups={"Registration"})
+     * @Groups({"users_read"})
      */
     private $password;
 
     /**
      * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas correctement confirmé votre mot de passe",groups={"Registration"})
-     *
+     * @Groups({"users_read"})
      */
     private $passwordConfirm;
 
