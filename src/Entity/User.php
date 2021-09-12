@@ -5,7 +5,9 @@ namespace App\Entity;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use App\Controller\UploadUserController;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -22,10 +24,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  message="email déjà utilisé merci d'en choisir un autre"
  * )
  * @ApiResource(
- *     normalizationContext={
- *          "groups"={"users_read"}
- *     },
- * collectionOperations={"GET", "POST"} 
+ *  collectionOperations={"GET","POST","myPost"={
+ *          "method"="post", 
+ *          "path"="/users/register",
+ *          "controller"= App\Controller\UploadUserController::class,
+ *          "openapi_context"={
+ *              "summary"="Ajouter un produit avec un fichier",
+ *              "description"="Ajouter un produit avec un fichier"
+ *          },
+ *          "deserialize"=false
+ *       },     
+ * }
  * )
  */
 class User implements UserInterface
@@ -99,8 +108,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"}, mimeTypesMessage="Vous devez upload un fichier jpg, png ou gif")
-     * @Assert\File(maxSize="1024k", maxSizeMessage="Taille du fichier trop grande")
+     * @ApiProperty()
      * @Groups({"users_read", "recettes_read", "comments_read"})
      */
     private $picture;
