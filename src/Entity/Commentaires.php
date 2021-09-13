@@ -36,7 +36,7 @@ class Commentaires
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"comments_read", "recettes_read"})
+     * @Groups({"comments_read", "recettes_read", "users_read"})
      */
     private $rating;
 

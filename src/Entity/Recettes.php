@@ -31,14 +31,14 @@ class Recettes
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"recettes_read", "produits_read"})
+     * @Groups({"recettes_read", "produits_read", "users_read"})
      */
     private $id;
 
     /**
      * @Assert\Length(min=2, max=40, minMessage="Le titre doit faire plus de 2 caractères", maxMessage="Le titre ne peut pas faire plus de 40 caractères")
      * @ORM\Column(type="string", length=255)
-     * @Groups({"recettes_read", "produits_read"})
+     * @Groups({"recettes_read", "produits_read", "users_read"})
      * 
      */
     private $titre;

@@ -24,6 +24,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  message="email déjà utilisé merci d'en choisir un autre"
  * )
  * @ApiResource(
+ *  normalizationContext={
+ *          "groups"={"users_read"}
+ *     },
  *  collectionOperations={"GET","POST","myPost"={
  *          "method"="post", 
  *          "path"="/users/register",
@@ -83,21 +86,21 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Recettes::class, mappedBy="author", cascade={"remove"})
-     * @Groups({"users_read", "comments_read"})
+     * @Groups({"users_read"})
      */
     private $recettes;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Vous devez renseigner votre prénom")
-     * @Groups({"users_read", "recettes_read", "comments_read"})
+     * @Groups({"users_read", "recettes_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank (message="Vous devez renseigner votre nom")
-     * @Groups({"users_read", "recettes_read", "comments_read"})
+     * @Groups({"users_read", "recettes_read"})
      */
     private $lastName;
 
@@ -109,7 +112,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @ApiProperty()
-     * @Groups({"users_read", "recettes_read", "comments_read"})
+     * @Groups({"users_read", "recettes_read"})
      */
     private $picture;
 
