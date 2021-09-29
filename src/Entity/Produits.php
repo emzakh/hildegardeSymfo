@@ -32,7 +32,7 @@ class Produits
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"produits_read"})
+     * @Groups({"produits_read", "recettes_read"})
      */
     private $id;
 

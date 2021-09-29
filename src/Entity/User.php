@@ -37,7 +37,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          },
  *          "deserialize"=false
  *       },     
- * }
+ * }, 
+ *  itemOperations={"GET","PUT","DELETE","PATCH"},
  * )
  */
 class User implements UserInterface
@@ -46,7 +47,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"users_read"})
+     * @Groups({"users_read","comments_read", "recettes_read"})
      */
     private $id;
 

@@ -14,7 +14,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     normalizationContext={
  *          "groups"={"comments_read"}
- *     }
+ *     },
+ *  collectionOperations={"GET", "POST"},
+ *  itemOperations={
+ *      "GET",
+ *      "DELETE",
+ *      "PUT",
+ *      "PATCH" 
+ *  } 
  * )
  */
 class Commentaires

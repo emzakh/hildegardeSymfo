@@ -69,6 +69,7 @@ security:
         # - { path: ^/produit/new, roles: ROLE_ADMIN }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/recettes/new, roles: IS_AUTHENTICATED_FULLY, methods: [POST]}        
         - { path: ^/api/recettes, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/produits, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 

@@ -5,13 +5,15 @@ namespace App\Entity;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecettesRepository;
+use App\Controller\UploadRecetteController;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 /**
  * @ORM\Entity(repositoryClass=RecettesRepository::class)
  * @ORM\HasLifecycleCallbacks
@@ -22,7 +24,19 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  * @ApiResource(
  *     normalizationContext={
  *          "groups"={"recettes_read"}
- *     }
+ *     },
+ *   collectionOperations={"GET","POST","myPost"={
+ *          "method"="post", 
+ *          "path"="/recettes/new",
+ *          "controller"= App\Controller\UploadRecetteController::class,
+ *          "openapi_context"={
+ *              "summary"="Ajouter une recette avec un fichier",
+ *              "description"="Ajouter une recette avec un fichier"
+ *          },
+ *          "deserialize"=false
+ *       },     
+ * }, 
+ *  itemOperations={"GET","PUT","DELETE","PATCH"},
  * )
  */
 class Recettes
@@ -31,20 +45,20 @@ class Recettes
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"recettes_read", "produits_read", "users_read"})
+     * @Groups({"recettes_read", "produits_read", "users_read","comments_read"})
      */
     private $id;
 
     /**
      * @Assert\Length(min=2, max=40, minMessage="Le titre doit faire plus de 2 caractères", maxMessage="Le titre ne peut pas faire plus de 40 caractères")
      * @ORM\Column(type="string", length=255)
-     * @Groups({"recettes_read", "produits_read", "users_read"})
+     * @Groups({"recettes_read", "produits_read", "users_read","comments_read"})
      * 
      */
     private $titre;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"recettes_read", "produits_read"})
      */
     private $date;
@@ -93,11 +107,13 @@ class Recettes
      */
     private $slug;
 
+   
+
+
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"}, mimeTypesMessage="Vous devez upload un fichier jpg, png ou gif")
-     * @Assert\File(maxSize="1024k", maxSizeMessage="Taille du fichier trop grande")
-     * @Groups({"recettes_read", "produits_read"})
+    * @ORM\Column(type="string", length=255, nullable=true)
+    * @ApiProperty()
+    * @Groups({"recettes_read", "produits_read"})
      */
     private $imgRecette;
 
