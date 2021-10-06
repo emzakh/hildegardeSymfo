@@ -92,7 +92,7 @@ class Recettes
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"recettes_read", "produits_read"})
+     * @Groups({"recettes_read", "produits_read", "users_read"})
      */
     private $types;
 
@@ -113,7 +113,7 @@ class Recettes
     /**
     * @ORM\Column(type="string", length=255, nullable=true)
     * @ApiProperty()
-    * @Groups({"recettes_read", "produits_read"})
+    * @Groups({"recettes_read", "produits_read", "users_read"})
      */
     private $imgRecette;
 
@@ -158,6 +158,7 @@ class Recettes
 
     /**
      * Permet de récup le notation moyenne de ma recette
+     * @Groups({"recettes_read"})
      */
     public function getAvgRatings()
     {

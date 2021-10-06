@@ -18,7 +18,7 @@ class JwtCreatedSubscriber {
         $data['lastName'] = $user->getLastName();
         $data['picture'] = $user->getPicture();
         $data['presentation'] = $user->getPresentation();
-      
+        $data['email'] = $user->getEmail();
 
      
 

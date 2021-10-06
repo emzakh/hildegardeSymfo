@@ -49,7 +49,7 @@ class Commentaires
 
     /**
      * @ORM\ManyToOne(targetEntity=Recettes::class, inversedBy="commentaires")
-     * @Groups({"comments_read"})
+     * @Groups({"comments_read","users_read"})
      */
     private $recette;
 
@@ -61,7 +61,7 @@ class Commentaires
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"comments_read", "recettes_read"})
+     * @Groups({"comments_read", "recettes_read", "users_read"})
      */
     private $createdAt;
 

@@ -6,6 +6,7 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use App\Controller\UploadUserController;
+use App\Controller\UpdateAvatar;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -30,15 +31,39 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  collectionOperations={"GET","POST","myPost"={
  *          "method"="post", 
  *          "path"="/users/register",
- *          "controller"= App\Controller\UploadUserController::class,
+ *          "controller"=App\Controller\UploadUserController::class,
  *          "openapi_context"={
  *              "summary"="Ajouter un produit avec un fichier",
  *              "description"="Ajouter un produit avec un fichier"
  *          },
  *          "deserialize"=false
- *       },     
- * }, 
- *  itemOperations={"GET","PUT","DELETE","PATCH"},
+ *       }
+ *              
+ *     
+ *  },
+ *  
+ *  itemOperations={"GET","PATCH","DELETE","password"={
+ *          "method"="put",
+ *          "path"="users/updatepw/{id}",
+ *          "controller"=App\Controller\UpdatePasswordController::class,
+ *          "openapi_context"={
+ *              "summary"="Modif pw",
+ *              "description"="modif pw",
+ *          },
+ *          "deserialize"=false
+ * 
+ *       },"PUT"={
+ *          "method"="put", 
+ *          "path"="users/register/{id}",
+ *          "controller"=App\Controller\UpdateUserController::class,
+ *          "openapi_context"={
+ *              "summary"="Modif user",
+ *              "description"="Modif user",
+ *          },
+ *          "deserialize"=false,          
+ *          }
+ * }
+ * 
  * )
  */
 class User implements UserInterface
@@ -159,6 +184,12 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id =$id;
+        return $this;
     }
 
     public function getEmail(): ?string
