@@ -27,11 +27,11 @@ class UpdatePasswordController extends AbstractController
         $user = $this->getUser(); 
             $password = $request->request->get('newPassword');
             // die(dump($password));
-            return $password;
-            // $hash = $encoder->encodePassword($user,$password);
-            // $user->setPassword($hash);
-            // $manager->persist($user);
-            // $manager->flush(); 
-            // return true;
+            // return $password;
+            $hash = $encoder->encodePassword($user,$password);
+            $user->setPassword($hash);
+            $manager->persist($user);
+            $manager->flush(); 
+            return true;
     }
 }
