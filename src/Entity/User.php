@@ -54,7 +54,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * 
  *       },"PUT"={
  *          "method"="put", 
- *          "path"="users/register/{id}",
+ *          "path"="users/update/{id}",
  *          "controller"=App\Controller\UpdateUserController::class,
  *          "openapi_context"={
  *              "summary"="Modif user",
