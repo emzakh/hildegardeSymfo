@@ -6,7 +6,7 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use App\Controller\UploadUserController;
-use App\Controller\UpdateAvatar;
+use App\Controller\UpdateAvatarController;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -37,7 +37,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *              "description"="Ajouter un produit avec un fichier"
  *          },
  *          "deserialize"=false
- *       }
+ *       },
  *              
  *     
  *  },
@@ -50,9 +50,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *              "summary"="Modif pw",
  *              "description"="modif pw",
  *          },
- *          "deserialize"=false
+ *          "deserialize"=false 
+ *       },
  * 
- *       },"PUT"={
+ *      "PUT"={
  *          "method"="put", 
  *          "path"="users/update/{id}",
  *          "controller"=App\Controller\UpdateUserController::class,
@@ -61,7 +62,20 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *              "description"="Modif user",
  *          },
  *          "deserialize"=false,          
+ *          },
+ * 
+ *        "Image"={
+ *          "method"="post", 
+ *          "path"="users/updateavatar/{id}",
+ *          "controller"=App\Controller\UpdateAvatarController::class,
+ *          "validate"=false,
+ *          "openapi_context"={
+ *              "summary"="Modif avatar",
+ *              "description"="Modif avatar",
+ *          },
+ *          "deserialize"=false,          
  *          }
+ *  
  * }
  * 
  * )

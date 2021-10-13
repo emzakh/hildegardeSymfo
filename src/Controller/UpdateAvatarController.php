@@ -11,28 +11,25 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-class UpdateAvatar extends AbstractController
-{
-    private $manager;
+class UpdateAvatarController extends AbstractController
+{   
 
-    public function __construct(EntityManagerInterface $manager){
-        $this->manager = $manager;
-    }
-
-   public function __invoke(Request $request, UserRepository $userRepo)
-   {
-    $data = $userRepo->findBy(['id']);
-    if(count($data) > 0){
-        $currentUser = $data[0];
-    }else{        
-        die('user doesnt exist');
-    }
-    $uploadedFile = $request->files->get('picture');
+   /**
+     * @param Request $request
+     * @param EntityManagerInterface $manager     
+     * @return Response
+     */ 
+    public function __invoke(Request $request, EntityManagerInterface $manager, UserRepository $userRepo)  
+   {             
+    $user = $this->getUser();   
+    // return $user;
+    $id = $request->get('id');
+    $user = $userRepo->find($id);
+    $uploadedFile = $request->files->get('picture'); 
     if(!$uploadedFile){
          die('You need a file upload');
-    }else{
+    }else{        
          $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-         // this is needed to safely include the file name as part of the URL
          $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
          $newFilename = $safeFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
          try{
@@ -43,19 +40,14 @@ class UpdateAvatar extends AbstractController
          }
          catch (FileException $e){
              return $e->getMessage();
-         }
+         }  
+         $user->setPicture($newFilename);
+    }   
 
-         $currentUser->setPicture($newFilename);
-    }
-
-    
-
-    $currentUser->setId($request->request->get('id'));
-  
-    $this->manager->persist($currentUser);
-    $this->manager->flush();
+    $manager->persist($user);
+    $manager->flush();
   
  
-    return $currentUser;
+    return $user;
    }
 }

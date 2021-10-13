@@ -22,16 +22,13 @@ class UpdatePasswordController extends AbstractController
      * @return Response
      */
     public function __invoke(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
-    {
-    
+    {    
         $user = $this->getUser(); 
-            $password = $request->request->get('newPassword');
-            // die(dump($password));
-            // return $password;
+            $password = $request->get('newPassword');       
             $hash = $encoder->encodePassword($user,$password);
             $user->setPassword($hash);
             $manager->persist($user);
             $manager->flush(); 
-            return true;
+            return $user;
     }
 }

@@ -25,8 +25,7 @@ class UploadUserController extends AbstractController
        if(!$uploadedFile){
             die('You need a file upload');
        }else{
-            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);            
             $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
             $newFilename = $safeFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
             try{
@@ -38,11 +37,8 @@ class UploadUserController extends AbstractController
             catch (FileException $e){
                 return $e->getMessage();
             }
-
             $data->setPicture($newFilename);
        }
-
-       
 
        $data->setFirstName($request->request->get('firstName'));
        $data->setLastName($request->request->get('lastName'));
@@ -50,10 +46,8 @@ class UploadUserController extends AbstractController
        $data->setPassword($request->request->get('password'));
        $data->setPresentation($request->request->get('presentation'));
        $this->manager->persist($data);
-       $this->manager->flush();
-     
+       $this->manager->flush();    
     
        return $data;
-
    }
 }

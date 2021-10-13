@@ -28,6 +28,13 @@ class RecetteType extends ApplicationType
                 ]
             ])
             ->add('description', TextareaType::class, $this->getConfiguration('Description','Description de la recette'))
+
+            ->add('preptime', TextareaType::class, $this->getConfiguration('Preptime','Temps de preparation de la recette'))
+
+            ->add('cooktime', TextareaType::class, $this->getConfiguration('Cooktime','Temps de cuisson de la recette'))
+
+            ->add('portion', TextareaType::class, $this->getConfiguration('Portion','Nombre de portion'))
+
             ->add('etapes', TextareaType::class, $this->getConfiguration('Etapes','1. Décrivez les étapes de votre recette...'))
 
 

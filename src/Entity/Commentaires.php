@@ -12,6 +12,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=CommentairesRepository::class)
  * @ORM\HasLifecycleCallbacks()
  * @ApiResource(
+ *     attributes={
+ *          "order"={"createdAt":"ASC"}
+ *     },
  *     normalizationContext={
  *          "groups"={"comments_read"}
  *     },

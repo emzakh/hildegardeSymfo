@@ -52,49 +52,17 @@ class UploadRecetteController extends AbstractController
        $data->setPreptime($request->request->get('preptime'));
        $data->setCooktime($request->request->get('cooktime'));
        $data->setPortion($request->request->get('portion'));
+       $data->setTypes($request->request->get('types'));
        
        $ingredients = $request->request->get('ingredients');
-       $ingredientsIds = explode(',', $ingredients);
-   
-       $ingredients = $repoproduit->findBy(['id' => $ingredientsIds]);
-   
+       $ingredientsIds = explode(',', $ingredients);   
+       $ingredients = $repoproduit->findBy(['id' => $ingredientsIds]); 
+
        foreach ($ingredients as $ingredient) {
        $data->addIngredient($ingredient);
-       }  
-       //recuperer un tableau avec les ids des ingredients (react doit envoyer le tableau)
-       //faire un repo des ingredients
-       //boucler le tableau (find les ingredients)
-       //addIngredient
-       
-       
-
-       //envoyer un string avec les ids(12, 14,)
-       //12 13 14 
-
-       // explode 
-       // $piecesTOTAL[12]
-       // $piecesTOTAL[13]
-       // $piecesTOTAL[14]
-       
-       // forEach piecesTOTAL et pour chazque iteration : find avec le repo et add 
-
-       // $data->addIngredi     ent($request->request->get('ingredients'));
-       
-       //en php recup chaque nombre et les associer avec le find 
-
-       //faire un addIngredient
-
-
-
-    //    $data->addIngredient($request->request->get('ingredients'));
-
-    //    $data->setAuthor($request->request->get('author'));    
-    //    $user=$repo->find($request->request->get('author'));
-    //    $data->setAuthor($user);
-
-       $data->setAuthor($this->getUser());
-       
-       $data->setTypes($request->request->get('types'));
+       } 
+  
+       $data->setAuthor($this->getUser());       
        $this->manager->persist($data);
        $this->manager->flush();
      

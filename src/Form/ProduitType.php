@@ -35,6 +35,16 @@ class ProduitType extends ApplicationType
             ])
             ->add('effets', TextType::class, $this->getConfiguration('Introduction','Donnez une description globale de l\'annonce'))
             ->add('description', TextareaType::class, $this->getConfiguration('Description','Description du produit'))
+
+            ->add('saison', TextareaType::class, $this->getConfiguration('Saison','Saison du produit'))
+
+            ->add('cultivation', TextareaType::class, $this->getConfiguration('Cultivation','Cultivation du produit'))
+            
+            ->add('conservation', TextareaType::class, $this->getConfiguration('Conservation','Conservation du produit'))
+            ->add('apport', TextareaType::class, $this->getConfiguration('Apport','Apport du produit'))
+            ->add('vitamine', TextareaType::class, $this->getConfiguration('Vitamine','Vitamine du produit'))
+            ->add('bebe', TextareaType::class, $this->getConfiguration('Bebe','Bebe du produit'))
+            ->add('nutriscore', TextareaType::class, $this->getConfiguration('Nutriscore','Nutriscore du produit'))
             ->add('image', FileType::class, [
                 'label' => "Image du produit (jpg, png, gif)",
 

@@ -32,6 +32,12 @@ class RecetteEditType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('etapes', TextareaType::class)
 
+            ->add('preptime', TextareaType::class)
+
+            ->add('cooktime', TextareaType::class)
+
+            ->add('portion', TextareaType::class)      
+
 
             ->add('ingredients',  EntityType::class, array(
                 'class' => Produits::class,
